@@ -1,8 +1,5 @@
 <script>
     import { supabase } from "$lib/supabaseClient.js";
-    // const addTask = (content) => {
-    //     console.log("task added");
-    // }
 
     const addTask = async (content) => {
         const { data, error } = await supabase

@@ -70,4 +70,11 @@ button {
     border: 1px solid white;
     color: white;
     padding: .2rem .4rem;
+    cursor: pointer;
+}
+
+input {
+    background-color: black;
+    color: white;
+    border: 1px solid white;
 }

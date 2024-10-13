@@ -1,24 +1,31 @@
 <script>
-    import { supabase } from "$lib/supabaseClient.js";
+    export let data;
+    $tasks = data.tasks;
+    import { tasks } from "$lib/stores";
 
     const addTask = async (content) => {
-        const { data, error } = await supabase
-            .from("tasks")
-            .insert({ content: content });
-        if (error) {
-            console.error("Error adding task:", error);
-        } 
-        
-        else {
-            console.log("Task added:", data);
-        }
+        fetch("./api/tasks/add", {
+            method: "POST",
+            body: JSON.stringify(content),
+            headers: {"Content-Type": "application/json"}
+        })
+        .then(res => res.json())
+        .then(json => {
+            $tasks = [...$tasks, {id: json, content: content}];
+        })
+        .catch(err => console.log(err));
     };
 
+    // const getTasks = async () => {
+    //     fetch("./api/tasks")
+    //     .then(res => res.json())
+    //     .then(json => {
+    //         $tasks = json;
+    //     })
+    //     .catch(err => console.log(err));
+    // }
 
-    const getTasks = async () => {
-        const { data } = await supabase.from("tasks").select();
-        console.log(data);
-    }
+    // $: console.log($tasks);
 </script>
 
 <main>
@@ -26,10 +33,16 @@
     on:keydown={e => {
         if(e.key === "Enter") {
             addTask(e.target.value);
+            e.target.value = '';
         }
     }}
     type="text" placeholder="Enter task content">
-    <button on:click={getTasks}>Get tasks</button>
+    <!-- <button on:click={getTasks}>Get tasks</button> -->
+    <div class="task-container">
+        {#each $tasks as {id, content}}
+            <div class="task" {id}>{content}</div>
+        {/each}
+    </div>
 </main>
 
 <style>
@@ -38,5 +51,18 @@
         display: flex;
         flex-direction: column;
         gap: .5rem;
+    }
+
+    .task-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: .5rem;
+    }
+
+    .task {
+        padding: .5rem;
+        border: 1px solid white;
+        background-color: black;
+        color: white;
     }
 </style>

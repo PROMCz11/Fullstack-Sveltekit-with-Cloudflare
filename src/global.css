@@ -73,8 +73,14 @@ button {
     cursor: pointer;
 }
 
+button:active {
+    background-color: white;
+    color: black;
+}
+
 input {
     background-color: black;
     color: white;
     border: 1px solid white;
+    border-radius: 0;
 }

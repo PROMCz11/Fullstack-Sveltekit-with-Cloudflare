@@ -16,16 +16,28 @@
         .catch(err => console.log(err));
     };
 
-    // const getTasks = async () => {
-    //     fetch("./api/tasks")
-    //     .then(res => res.json())
-    //     .then(json => {
-    //         $tasks = json;
-    //     })
-    //     .catch(err => console.log(err));
-    // }
+    const refreshTasks = async () => {
+        $tasks = [];
+        fetch("./api/tasks")
+        .then(res => res.json())
+        .then(json => {
+            $tasks = json;
+        })
+        .catch(err => console.log(err));
+    }
 
-    // $: console.log($tasks);
+    const deleteAllTasks = () => {
+        $tasks = [];
+        fetch("./api/tasks/deleteAll",{
+            method: "DELETE",
+            headers: {"Content-Type": "application/json"}
+        })
+        .then(res => res.json())
+        .then(json => console.log(json))
+        .catch(err => console.log(err));
+    }
+
+    $: console.log($tasks);
 </script>
 
 <main>
@@ -37,10 +49,13 @@
         }
     }}
     type="text" placeholder="Enter task content">
-    <!-- <button on:click={getTasks}>Get tasks</button> -->
+    <button on:click={refreshTasks}>Refresh</button>
+    <button on:click={deleteAllTasks}>Delete all</button>
     <div class="task-container">
-        {#each $tasks as {id, content}}
+        {#each $tasks as {id, content} (id)}
             <div class="task" {id}>{content}</div>
+            {:else}
+            <p>No tasks yet</p>
         {/each}
     </div>
 </main>
@@ -48,21 +63,19 @@
 <style>
     main {
         padding: .5rem;
-        display: flex;
-        flex-direction: column;
-        gap: .5rem;
     }
 
     .task-container {
         display: flex;
         flex-wrap: wrap;
         gap: .5rem;
+        margin-block: .5rem;
     }
 
     .task {
         padding: .5rem;
-        border: 1px solid white;
+        border: 1px solid #757575;
         background-color: black;
-        color: white;
+        color: #757575;
     }
 </style>

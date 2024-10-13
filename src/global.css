@@ -61,16 +61,21 @@ select {
 
 body {
     background-color: black;
-    color: white;
+    color: #a1a1a1;
     font-family: monospace;
 }
 
 button {
     background-color: black;
-    border: 1px solid white;
-    color: white;
+    border: 1px solid #a1a1a1;
+    color: #a1a1a1;
     padding: .2rem .4rem;
     cursor: pointer;
+}
+
+button:hover, input:hover {
+    color: white;
+    border-color: white;
 }
 
 button:active {
@@ -80,7 +85,7 @@ button:active {
 
 input {
     background-color: black;
-    color: white;
-    border: 1px solid white;
+    color: #a1a1a1;
+    border: 1px solid #a1a1a1;
     border-radius: 0;
 }

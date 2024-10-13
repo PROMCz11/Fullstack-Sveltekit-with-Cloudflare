@@ -74,9 +74,9 @@
 
     .task {
         padding: .5rem;
-        border: 1px solid hsl(0, 0%, 63%);
+        border: 1px solid #a1a1a1;
         background-color: black;
-        color: hsl(0, 0%, 63%);
+        color: #a1a1a1;
         cursor: pointer;
     }
 

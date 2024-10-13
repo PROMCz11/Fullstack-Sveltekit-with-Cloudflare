@@ -74,8 +74,14 @@
 
     .task {
         padding: .5rem;
-        border: 1px solid #757575;
+        border: 1px solid hsl(0, 0%, 63%);
         background-color: black;
-        color: #757575;
+        color: hsl(0, 0%, 63%);
+        cursor: pointer;
+    }
+
+    .task:hover {
+        border: 1px solid white;
+        color: white;
     }
 </style>
